@@ -183,7 +183,11 @@ header.solid{background:rgba(12,34,24,.94);backdrop-filter:blur(8px)}
 .tag{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,2rem);color:#d9c79a;margin:.6rem 0 1.2rem}
 .intro{max-width:34ch;opacity:.9}
 .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
-.hint{margin-top:1.6rem;font-size:.85rem;opacity:.65}
+.hint{margin-top:1.6rem;display:flex;flex-direction:column;gap:.25rem}
+.hint strong{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:500;line-height:1.2;color:#d9c79a}
+.hint span{font-size:.95rem;opacity:.85}
+.hint .arr{width:fit-content;font-size:1.8rem;line-height:1;color:#d9c79a;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
 .sart{display:none}
 #chap{position:absolute;left:0;top:calc(68px + 7vh);width:min(380px,40%);opacity:0}
 .ci.in{animation:cin .5s ease both}
@@ -384,7 +388,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 <p class="intro">Pure, premium, organic values. Fresh oyster mushrooms grown with care, plus mushroom spawn and Nati Koli, sold straight from our farm.</p>
 <div class="cta"><a class="btn btn-light" href="#products">Explore Products</a><a class="btn btn-line" data-wa href="https://wa.me/917353465926">Order Now</a></div>
 <p class="sart" aria-hidden="true"><svg><use href="#oyster"/></svg><svg><use href="#hen"/></svg></p>
-<p class="hint">Scroll to begin the story</p>
+<p class="hint"><strong>See how your oyster mushrooms grow</strong><span>From a speck of spawn to fresh harvest, in 10 simple steps. Keep scrolling</span><b class="arr" aria-hidden="true">&darr;</b></p>
 </div>
 <div id="chap"><div class="ci"><small id="cn"></small><h2 id="ct"></h2><p id="cx"></p></div></div>
 <div class="nut" id="nutA"><h3>Oyster mushrooms, per 100 g raw</h3><ul>
