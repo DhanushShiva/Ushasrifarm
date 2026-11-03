@@ -151,7 +151,8 @@ const CH=[['Oyster mushroom journey 1/10','Spawn meets substrate','Mushroom spaw
 const NC=CH.length,WT=CH.map((_,i)=>i===9||i===18?1.7:1),WS=WT.reduce((a,b)=>a+b,0),WC=WT.reduce((a,w)=>(a.push(a[a.length-1]+w),a),[0]),warp=t=>{const x=t*WS;let i=0;while(i<NC-1&&x>=WC[i+1])i++;return i+(x-WC[i])/WT[i]},intro=$('#intro'),chap=$('#chap'),cn=$('#cn'),ct=$('#ct'),cx=$('#cx'),ci=$('.ci'),veil=$('.veil'),bar=$('#bar'),nA=$('#nutA'),nB=$('#nutB');
 const lisA=[...nA.querySelectorAll('li')],lisB=[...nB.querySelectorAll('li')];
 const nut=(el,lis,u,out)=>{el.style.opacity=(sm(u/.15)*out).toFixed(3);lis.forEach((li,k)=>{const p=sm((u-.12-k*.1)/.2);li.style.opacity=p;li.style.transform=`translateX(${(1-p)*-18}px)`;const n=li.querySelector('.num');if(n)n.textContent=(+n.dataset.v*p).toFixed(+n.dataset.d||0);const b=li.querySelector('i');if(b)b.style.transform=`scaleX(${p})`})};
-let dm=1;function fit(){const w=hero.clientWidth,h=innerHeight;dm=Math.max(1,1.1/(w/h));R.setSize(w,h,false);cam.aspect=w/h;if(w>900)cam.setViewOffset(w,h,-w*.14,0,w,h);else if(w<760)cam.setViewOffset(w,h,0,h*.06,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
+function setNuh(){if(innerWidth<760)hero.style.setProperty('--nuh',((hero.dataset.nut==='B'?nB:nA).offsetHeight||200)+'px')}
+let dm=1;function fit(){setNuh();if(innerWidth<760)hero.style.setProperty('--chh',Math.max(0,($('#chap').offsetHeight||144)-26)+'px');const w=hero.clientWidth,h=innerHeight;dm=Math.max(1,1.1/(w/h));R.setSize(w,h,false);cam.aspect=w/h;if(w>900)cam.setViewOffset(w,h,-w*.14,0,w,h);else if(w<760)cam.setViewOffset(w,h,0,h*.06,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
 addEventListener('resize',fit);fit();
 const S={t:0},V=new THREE.Vector3(),T=new THREE.Vector3(),S0=[-3.9,1.7],N0=[-.1,.1],O=[-5.2,-2.4],NP=new THREE.Vector3(0,-1.54,0),BP=new THREE.Vector3(2.2,-1.38,.9),DP=new THREE.Vector3(.8,-.5,1.5);let ES=.26,HN=hen,gh=null,useM=false,gb=null;
 const yawIn=Math.atan2(N0[0]-S0[0],N0[1]-S0[1]),yawOut=Math.atan2(O[0]-N0[0],O[1]-N0[1]);
@@ -161,7 +162,7 @@ function render(){if(!live)return;
  scn.background.copy(inB?C(0x2a2818):C(0x0b1d15));hemi.intensity=inB?.7:.3;rim.intensity=inB?1.1:.9;scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x48442a):C(0x0f261b));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
  veil.style.opacity=clamp(1-Math.abs(ch-10)/.3).toFixed(3);bar.style.width=(t*100)+'%';
  const idx=Math.min(NC-1,Math.floor(ch));
- if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');hero.classList.toggle('nutOn',idx===9||idx===18)}
+ if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');if(mobile||innerWidth<760)hero.style.setProperty('--chh',Math.max(0,chap.offsetHeight-26)+'px');hero.classList.toggle('nutOn',idx===9||idx===18);hero.dataset.nut=idx===18?'B':'A';setNuh()}
  const io=1-sm(ch/.45);intro.style.opacity=io;intro.style.pointerEvents=io<.15?'none':'auto';chap.style.opacity=sm((ch-.4)/.3);
  nut(nA,lisA,ch-9,1-sm((ch-9.75)/.25));nut(nB,lisB,ch-18,1);
  if(!inB){
