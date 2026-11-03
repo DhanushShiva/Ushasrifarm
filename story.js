@@ -31,7 +31,7 @@ const fT=tex(256,256,(g,w,h)=>{g.fillStyle='#6a3d20';g.fillRect(0,0,w,h);const c
 const wT=tex(256,128,(g,w,h)=>{g.fillStyle='#8a6232';g.fillRect(0,0,w,h);for(let y=0;y<h;y+=16)for(let x=-32;x<w;x+=32){const o=(y/16%2)*16;g.fillStyle=['#b88a4e','#a67a42','#c79a5e'][(rnd()*3)|0];g.fillRect(x+o,y+1,30,14);g.fillStyle='rgba(0,0,0,.25)';g.fillRect(x+o,y+14,30,2)}},[4,1]);
 const eT=tex(256,128,(g,w,h)=>{g.fillStyle='#d3a273';g.fillRect(0,0,w,h);for(let i=0;i<500;i++){g.fillStyle=`rgba(${90+rnd()*60},${60+rnd()*40},40,${.05+rnd()*.12})`;g.beginPath();g.arc(rnd()*w,rnd()*h,.6+rnd()*1.6,0,6.28);g.fill()}});
 const M=(o)=>new THREE.MeshStandardMaterial(o);
-const floorM=M({color:0x1c3d2d,roughness:1}),floor=new THREE.Mesh(new THREE.CircleGeometry(16,48),floorM);floor.rotation.x=-Math.PI/2;floor.position.y=-1.7;floor.receiveShadow=true;scn.add(floor);
+const floorM=M({color:0x1c3d2d,roughness:1,envMapIntensity:.25}),floor=new THREE.Mesh(new THREE.CircleGeometry(48,48),floorM);floor.rotation.x=-Math.PI/2;floor.position.y=-1.7;floor.receiveShadow=true;scn.add(floor);
 const A=new THREE.Group(),B=new THREE.Group();scn.add(A,B);
 const anchor=(p,x,y,z)=>{const o=new THREE.Object3D();o.position.set(x,y,z);p.add(o);return o};
 function basket(){const g=new THREE.Group(),m=M({map:wT,roughness:.9,side:THREE.DoubleSide}),pr=[[.62,0],[.7,.05],[.84,.3],[.97,.62],[1,.7]].map(([x,y])=>new THREE.Vector2(x,y));
@@ -119,18 +119,19 @@ lab('Mushroom cap',anchor(h0.cp,0,.5,-.9),4.2,6.1);lab('Gills',anchor(h0.cp,0,.2
 lab('Shell',anchor(cutG,-.47,.1,.02),17.3,19.1);lab('Egg white',anchor(cutG,-.33,.36,.02),17.4,19.1);lab('Egg yolk',anchor(cutG,.05,-.02,.02),17.5,19.1);
 L.forEach(l=>{l.g=l.b<10?0:1});
 /* camera rails (Catmull-Rom through per-chapter keyframes: position, look-at) */
-const rail=k=>[new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[0],v[1],v[2]))),new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[3],v[4],v[5])))];
-const cA=rail([[0,2.6,6.2,0,.2,0],[3.6,.2,4.6,0,-.7,0],[-2.2,1.8,5.2,0,.2,0],[0,1.4,5.2,0,.4,.2],[1,.1,4.6,0,.8,.5],[0,1.6,7.2,0,.4,0],[1.5,1.8,7.6,1.8,-.2,0],[4,.8,5.4,4,-1.2,0],[4.2,-.1,3.8,4,-1,0],[5.2,.4,4.4,3.9,-.9,0]]);
-const cB=rail([[-1.2,-.6,5.2,-3.4,-1,1.7],[-2.6,-.9,4.6,-2,-1.1,.9],[-1.4,-.7,3.6,-.2,-1.1,.2],[1.2,-.6,3.3,-.1,-1.1,.2],[.5,-.9,1.9,0,-1.45,0],[1.4,-.2,4.2,1.2,-1.3,.5],[1.6,-.5,4.2,1.6,-.55,1.2],[1.5,-.45,4.1,1.6,-.55,1.2],[1.6,-.5,4.4,1.6,-.55,1.2]]);
+const rail=k=>[new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[0],v[1],v[2]))),new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[3],v[4],v[5]))),new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[6],0,0)))];
+/* keys per chapter: [camX,camY,camZ, lookX,lookY,lookZ, fov]. Wide establishing shots, a few deliberate closer beats. */
+const cA=rail([[0,2.2,7.8,0,-.7,0,34],[3.4,.6,7.6,0,-.7,0,34],[-2.2,1.6,8.8,0,-.4,0,36],[0,1.2,9.6,0,.1,0,37],[1.4,.8,10.4,0,.35,.3,38],[0,1.2,11.4,0,.2,0,38],[1.6,2,12.6,1.6,-.1,0,38],[3.6,1.6,10.6,3.6,-.5,0,36],[4.2,.8,7.8,4,-.7,0,34],[4.6,.3,8.4,4,-.8,0,34]]);
+const cB=rail([[-1.5,0,9.6,-2.7,-.8,1.2,36],[-1.8,.4,10.6,-2,-.8,.9,36],[-.8,.2,8.6,-.2,-1,.2,36],[1.6,.2,9.4,-.1,-.9,.2,36],[.9,.1,6.6,-.2,-1.1,.2,36],[1.2,.2,7.6,1.1,-1,.5,36],[1.6,-.3,6.6,1.6,-.6,1.2,34],[1.6,-.3,6.8,1.6,-.6,1.2,34],[1.7,-.4,6.2,1.6,-.6,1.2,34]]);
 /* UI */
 const CH=[['Oyster mushroom journey 1/10','Spawn meets substrate','Mushroom spawn, grain colonised by mycelium, is mixed into a prepared growing substrate such as straw.'],['Oyster mushroom journey 2/10','Mycelium spreads','White mycelium threads grow through the substrate and bind it together.'],['Oyster mushroom journey 3/10','Pins appear','Tiny primordia, called pins, push out of the surface when conditions are right.'],['Oyster mushroom journey 4/10','Growing','Stems lengthen and the first small caps begin to form.'],['Oyster mushroom journey 5/10','Caps expand','Caps widen and ruffle into the soft fan shape oyster mushrooms are known for.'],['Oyster mushroom journey 6/10','A full cluster','A mature cluster: the cap, the gills beneath it, and the short stem joining them.'],['Oyster mushroom journey 7/10','Harvest','Mature clusters are picked by hand at harvest time.'],['Oyster mushroom journey 8/10','Into the basket','Freshly picked mushrooms are placed gently into a natural basket.'],['Oyster mushroom journey 9/10','Fresh from the farm','Tender, fresh and ready to supply.'],['Oyster mushroom journey 10/10','What is inside','Nutritional highlights of raw oyster mushrooms.'],
 ['Nati Koli and desi egg 1/9','Nati Koli at home','Our native country chicken, the Nati Koli, in a natural farm setting.'],['Nati Koli and desi egg 2/9','Heading to the nest','When ready to lay, a hen looks for a quiet, sheltered nest.'],['Nati Koli and desi egg 3/9','Settling in','She settles into the straw and stays calm and still.'],['Nati Koli and desi egg 4/9','Laying','An egg is laid while she rests on the nest.'],['Nati Koli and desi egg 5/9','A fresh egg','A freshly laid egg rests in the nest.'],['Nati Koli and desi egg 6/9','Collecting','Eggs are collected gently and placed in a basket.'],['Nati Koli and desi egg 7/9','The desi egg','A closer look at a brown-shelled desi egg.'],['Nati Koli and desi egg 8/9','Inside the egg','A cross-section: the shell, the egg white and the yolk.'],['Nati Koli and desi egg 9/9','What is inside','Nutritional highlights for one large egg.']];
 const NC=CH.length,intro=$('#intro'),chap=$('#chap'),cn=$('#cn'),ct=$('#ct'),cx=$('#cx'),ci=$('.ci'),veil=$('.veil'),bar=$('#bar'),nA=$('#nutA'),nB=$('#nutB');
 const lisA=[...nA.querySelectorAll('li')],lisB=[...nB.querySelectorAll('li')];
 const nut=(el,lis,u,out)=>{el.style.opacity=(sm(u/.15)*out).toFixed(3);lis.forEach((li,k)=>{const p=sm((u-.12-k*.1)/.2);li.style.opacity=p;li.style.transform=`translateX(${(1-p)*-18}px)`;const n=li.querySelector('.num');if(n)n.textContent=(+n.dataset.v*p).toFixed(+n.dataset.d||0);const b=li.querySelector('i');if(b)b.style.transform=`scaleX(${p})`})};
-function fit(){const w=hero.clientWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;if(w>900)cam.setViewOffset(w,h,-w*.17,0,w,h);else if(w<760)cam.setViewOffset(w,h,0,h*.14,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
+let dm=1;function fit(){const w=hero.clientWidth,h=innerHeight;dm=Math.max(1,1.1/(w/h));R.setSize(w,h,false);cam.aspect=w/h;if(w>900)cam.setViewOffset(w,h,-w*.14,0,w,h);else if(w<760)cam.setViewOffset(w,h,0,h*.06,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}
 addEventListener('resize',fit);fit();
-const S={t:0},V=new THREE.Vector3(),T=new THREE.Vector3(),S0=[-3.9,1.7],N0=[-.1,.1],O=[-2.8,1.4],NP=new THREE.Vector3(0,-1.54,0),BP=new THREE.Vector3(2.2,-1.38,.9),DP=new THREE.Vector3(1.6,-.55,1.2);
+const S={t:0},V=new THREE.Vector3(),T=new THREE.Vector3(),S0=[-3.9,1.7],N0=[-.1,.1],O=[-5.2,-2.4],NP=new THREE.Vector3(0,-1.54,0),BP=new THREE.Vector3(2.2,-1.38,.9),DP=new THREE.Vector3(1.6,-.55,1.2);
 const yawIn=Math.atan2(N0[0]-S0[0],N0[1]-S0[1]),yawOut=Math.atan2(O[0]-N0[0],O[1]-N0[1]);
 let live=true,last=-1;
 function render(){if(!live)return;
@@ -142,7 +143,7 @@ function render(){if(!live)return;
  const io=1-sm(ch/.45);intro.style.opacity=io;intro.style.pointerEvents=io<.15?'none':'auto';chap.style.opacity=sm((ch-.4)/.3);
  nut(nA,lisA,ch-9,1-sm((ch-9.75)/.25));nut(nB,lisB,ch-18,1);
  if(!inB){
-  const my=sm((ch-.8)/1.4);mg.setDrawRange(0,(mTot*my)|0);subM.emissive.setScalar(.1*my);grains.visible=ch<3.3;
+  const my=sm((ch-.8)/1.4);mg.setDrawRange(0,(mTot*my)|0);subM.emissive.setScalar(.1*my);grains.visible=ch<3.3;const sk=sm((ch-7.8)/.7)*2.4;sub.position.y=-.85-sk;myc.position.y=-sk;bA.scale.setScalar(Math.max(.001,sm((ch-4.4)/.8)));
   for(const m of ms){const gi=sm((ch-(2+m.i/N*1.1))/1.9),cs=sm((gi-.3)/.7),hv=sm((ch-(6+m.i/N*.8))/1);
    m.g.visible=gi>.002;m.stem.scale.set(m.size*(.35+.65*gi),m.L*gi+.001,m.size*(.35+.65*gi));m.cp.position.y=m.L*gi;m.cp.scale.setScalar(m.size*.62*cs+1e-4);
    m.g.position.lerpVectors(m.p0,m.pB,hv);m.g.position.y+=Math.sin(Math.PI*hv)*1.3;m.g.quaternion.copy(m.q0).slerp(m.qB,hv);m.g.scale.setScalar(lerp(1,.55,hv))}
@@ -150,14 +151,14 @@ function render(){if(!live)return;
   const w1=sm((ch-11)/1.6),w2=sm((ch-14)/.9),sq=sm((ch-12.6)/.7)-sm((ch-13.9)/.5),mv=clamp(Math.min(w1,1-w1)*12+Math.min(w2,1-w2)*12);
   let x=lerp(S0[0],N0[0],w1),z=lerp(S0[1],N0[1],w1);if(w2>0){x=lerp(N0[0],O[0],w2);z=lerp(N0[1],O[1],w2)}
   hen.visible=ch<14.95;hen.position.set(x,-1.7-.42*sq,z);hen.rotation.y=lerp(yawIn,yawOut,sm((ch-13.9)/.5));
-  const ph=(w1*4.9+w2*2.9)*5;legs[0].rotation.x=Math.sin(ph)*.6*mv;legs[1].rotation.x=-Math.sin(ph)*.6*mv;legs.forEach(l=>l.scale.y=1-.85*sq);
+  const ph=(w1*4.9+w2*5.7)*5;legs[0].rotation.x=Math.sin(ph)*.6*mv;legs[1].rotation.x=-Math.sin(ph)*.6*mv;legs.forEach(l=>l.scale.y=1-.85*sq);
   bod.position.y=Math.abs(Math.sin(ph))*.04*mv+Math.sin(ch*40)*.012*sq;hd.rotation.x=Math.max(0,Math.sin(ch*26))*.28*(1-w1)+Math.sin(ph*2)*.06*mv;
   const e1=sm((ch-14.6)/1.1),e2=sm((ch-15.9)/.9);eL.visible=ch>=13.2&&ch<17;
   eL.position.lerpVectors(NP,BP,e1);eL.position.y+=Math.sin(Math.PI*e1)*1;eL.position.lerp(DP,e2);eL.scale.setScalar(lerp(.26*sm((ch-13.2)/.8),1.3,e2));
   eL.rotation.set(0,.5+(Math.PI*2-.5)*sm((ch-16.3)/.7),lerp(Math.PI/2,0,e2));
   const u=ch-17;cutG.visible=ch>=17;cutG.position.copy(DP);cutG.scale.setScalar(1.3);const f=sm((u-.1)/.6);frontH.position.z=.8*f;shF.opacity=1-sm((u-.2)/.5);frontH.visible=shF.opacity>.01;
  }
- const pc=inB?cB:cA,u=inB?clamp((ch-10)/8):clamp(ch/9);pc[0].getPoint(u,cam.position);pc[1].getPoint(u,T);cam.lookAt(T);cam.updateMatrixWorld();
+ const pc=inB?cB:cA,u=inB?clamp((ch-10)/8):clamp(ch/9);pc[1].getPoint(u,T);pc[0].getPoint(u,cam.position);cam.position.sub(T).multiplyScalar(dm>1.15&&!inB?dm*(1+.35*sm((ch-5.6)/.6)*(1-sm((ch-7.4)/.6))):dm).add(T);cam.lookAt(T);pc[2].getPoint(u,V);if(Math.abs(cam.fov-V.x)>.01){cam.fov=V.x;cam.updateProjectionMatrix()}cam.updateMatrixWorld();const dist=cam.position.distanceTo(T);scn.fog.near=dist+5;scn.fog.far=dist+22;
  const W=hero.clientWidth,H=innerHeight;
  for(const l of L){const op=(l.g===(inB?1:0))?sm((ch-l.a)/.3)*sm((l.b-ch)/.3):0;if(op<.02){l.el.style.opacity=0;continue}
   l.p.updateWorldMatrix(true,false);V.setFromMatrixPosition(l.p.matrixWorld).project(cam);const x=(V.x*.5+.5)*W,y=(-V.y*.5+.5)*H;
