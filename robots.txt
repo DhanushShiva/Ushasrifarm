@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # TODO: replace example.com with your real domain
-Sitemap: https://www.example.com/sitemap.xml
+Sitemap: https://dhanushshiva.github.io/Ushasrifarm/sitemap.xml
