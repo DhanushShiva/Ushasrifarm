@@ -158,7 +158,7 @@ const yawIn=Math.atan2(N0[0]-S0[0],N0[1]-S0[1]),yawOut=Math.atan2(O[0]-N0[0],O[1
 let live=true,last=-1;
 function render(){if(!live)return;
  const t=S.t,ch=warp(t),inB=ch>=10;A.visible=!inB;B.visible=inB;
- scn.background.copy(inB?C(0x1a190e):C(0x0b1d15));scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x2e2b17):C(0x0f261b));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
+ scn.background.copy(inB?C(0x2a2818):C(0x0b1d15));scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x48442a):C(0x0f261b));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
  veil.style.opacity=clamp(1-Math.abs(ch-10)/.3).toFixed(3);bar.style.width=(t*100)+'%';
  const idx=Math.min(NC-1,Math.floor(ch));
  if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');hero.classList.toggle('nutOn',idx===9||idx===18)}
