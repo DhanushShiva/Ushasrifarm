@@ -171,12 +171,13 @@ function render(){if(!live)return;
    m.g.visible=gi>.002;m.stem.scale.set(m.size*(.35+.65*gi),m.L*gi+.001,m.size*(.35+.65*gi));m.cp.position.y=m.L*gi;m.cp.scale.setScalar(m.size*.62*cs+1e-4);
    m.g.position.lerpVectors(m.p0,m.pB,hv);m.g.position.y+=Math.sin(Math.PI*hv)*1.3;m.g.quaternion.copy(m.q0).slerp(m.qB,hv);m.g.scale.setScalar(lerp(1,.55,hv))}
  }else{
-  const w1=sm((ch-11)/1.6),w2=sm((ch-14)/.9),sq=sm((ch-12.6)/.7)-sm((ch-13.9)/.5),mv=clamp(Math.min(w1,1-w1)*12+Math.min(w2,1-w2)*12);
+  /* hen now starts directly in the walking state: no fly / landing / wake-up intro clip */
+  const w1=sm((ch-10.2)/2.4),w2=sm((ch-14)/.9),sq=sm((ch-12.6)/.7)-sm((ch-13.9)/.5),mv=clamp(Math.min(w1,1-w1)*12+Math.min(w2,1-w2)*12);
   let x=lerp(S0[0],N0[0],w1),z=lerp(S0[1],N0[1],w1);if(w2>0){x=lerp(N0[0],O[0],w2);z=lerp(N0[1],O[1],w2)}
   HN.visible=ch<14.95;HN.position.set(x,-1.7-(gh?.38:.42)*sq,z);HN.rotation.y=lerp(yawIn,yawOut,sm((ch-13.9)/.5));
   const ph=(w1*4.9+w2*5.7)*5;legs[0].rotation.x=Math.sin(ph)*.6*mv;legs[1].rotation.x=-Math.sin(ph)*.6*mv;legs.forEach(l=>l.scale.y=1-.85*sq);
   bod.position.y=Math.abs(Math.sin(ph))*.04*mv+Math.sin(ch*40)*.012*sq;hd.rotation.x=Math.max(0,Math.sin(ch*26))*.28*(1-w1)+Math.sin(ph*2)*.06*mv;
-  if(gh){gh.aI.time=ch<11?(ch-10)*1.4:0;gh.aW.time=((w1*4.9+w2*5.7)/1.15)%1;gh.aI.setEffectiveWeight(Math.max(.001,1-mv));gh.aW.setEffectiveWeight(Math.max(.001,mv));gh.mx.update(0)}
+  if(gh){gh.aI.time=0;gh.aW.time=((w1*4.9+w2*5.7)/1.15)%1;gh.aI.setEffectiveWeight(Math.max(.001,1-mv));gh.aW.setEffectiveWeight(Math.max(.001,mv));gh.mx.update(0)}
   if(gb)gb.scale.setScalar(Math.max(.001,1.25*sm((ch-12.2)/.8)));const e1=sm((ch-14.6)/1.1),e2=sm((ch-15.9)/.9);eL.visible=ch>=13.2&&ch<17;
   eL.position.lerpVectors(NP,BP,e1);eL.position.y+=Math.sin(Math.PI*e1)*1;eL.position.lerp(DP,e2);eL.scale.setScalar(lerp(ES*sm((ch-13.2)/.8),1.3,e2));
   eL.rotation.set(0,.5+(Math.PI*2-.5)*sm((ch-16.3)/.7),lerp(Math.PI/2,0,e2));
