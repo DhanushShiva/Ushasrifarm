@@ -58,22 +58,60 @@ header.solid{background:rgba(12,34,24,.94);backdrop-filter:blur(8px)}
 .nav ul a:hover{opacity:1}
 .burger{display:none;background:none;border:0;color:inherit;font-size:1.7rem;cursor:pointer}
 @media(max-width:820px){.burger{display:block}.nav ul{position:absolute;inset:68px 0 auto;flex-direction:column;gap:0;background:var(--forest2);padding:.5rem 4%;display:none}.nav ul.open{display:flex}.nav ul a{display:block;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08)}}
-/* hero */
-#hero{height:340vh;padding:0;background:radial-gradient(ellipse at 70% 45%,#245a41 0%,var(--forest) 45%,var(--forest2) 100%);color:var(--cream)}
+/* hero: scroll-controlled story */
+#hero{height:calc(100vh + 19*72vh);padding:0;background:#10281d;color:var(--cream)}
 .stick{position:sticky;top:0;height:100vh;overflow:hidden}
-#scene{position:absolute;inset:0;width:100%;height:100%}
-.fallback{position:absolute;right:6%;top:50%;transform:translateY(-45%);width:min(46vw,520px);display:none}
-.nogl .fallback{display:block}.nogl #scene{display:none}
-.hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-top:68px;pointer-events:none}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 62% 50%,transparent 45%,rgba(6,18,12,.55) 100%)}
+.veil{position:absolute;inset:0;z-index:2;background:#10281d;opacity:0;pointer-events:none}
+#labels{position:absolute;inset:0;z-index:3;pointer-events:none}
+.lbl{position:absolute;left:0;top:0;opacity:0;font:600 .85rem var(--sans);color:var(--cream);white-space:nowrap}
+.lbl i{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#d9c79a;box-shadow:0 0 0 4px rgba(217,199,154,.3)}
+.lbl b{position:absolute;left:18px;top:-.8em;font-weight:600;padding:.15rem .6rem;background:rgba(12,34,24,.8);border:1px solid rgba(217,199,154,.5);border-radius:999px}
+.lbl.flip b{left:auto;right:18px}
+.hero-in{position:relative;z-index:4;height:100%;pointer-events:none}
 .hero-in>*{pointer-events:auto}
-.hero-in h1{font-size:clamp(3rem,9vw,7.2rem);font-weight:700;letter-spacing:.02em;line-height:.95}
+#intro{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:min(520px,46%)}
+#intro h1{font-size:clamp(3rem,8vw,6.6rem);font-weight:700;letter-spacing:.02em;line-height:.95}
 .tag{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.6vw,2rem);color:#d9c79a;margin:.6rem 0 1.2rem}
-.intro{max-width:34ch;opacity:.88}
+.intro{max-width:34ch;opacity:.9}
 .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
-.stage{margin-top:2.2rem;max-width:30ch;font-family:var(--serif);font-size:1.15rem;min-height:3.2em;color:#cfe3d4;transition:opacity .4s}
-.bar{width:180px;height:2px;background:rgba(244,239,227,.2);margin-top:.8rem}.bar i{display:block;height:100%;width:0;background:#d9c79a}
-.pill{position:absolute;z-index:2;bottom:1.4rem;left:50%;transform:translateX(-50%);font-size:.85rem;opacity:.65}
-@media(max-width:700px){.hero-in{justify-content:flex-start;padding-top:96px}.stage{margin-top:1rem}}
+.hint{margin-top:1.6rem;font-size:.85rem;opacity:.65}
+.sart{display:none}
+#chap{position:absolute;left:0;top:calc(68px + 7vh);width:min(380px,40%);opacity:0}
+.ci.in{animation:cin .5s ease both}
+@keyframes cin{from{opacity:0;transform:translateY(10px)}}
+#chap small{display:block;font-size:.8rem;letter-spacing:.04em;color:#d9c79a;margin-bottom:.4rem}
+#chap h2{font-size:clamp(1.7rem,3.4vw,2.6rem);margin-bottom:.5rem}
+#chap p{opacity:.9;font-size:1rem}
+.nut{position:absolute;left:0;top:calc(68px + 7vh + 190px);width:min(370px,42%);opacity:0;pointer-events:none}
+.nut h3{font-size:1rem;margin-bottom:.5rem;color:#d9c79a;font-weight:500}
+.nut ul{list-style:none;padding:0;display:grid;gap:.4rem}
+.nut li{padding:.45rem .8rem;border-radius:10px;background:rgba(12,34,24,.78);border:1px solid rgba(217,199,154,.25);display:grid;grid-template-columns:auto 1fr;gap:0 .8rem;font-size:.88rem;line-height:1.3;position:relative;overflow:hidden;opacity:0}
+.nut li b{font-family:var(--serif);font-weight:500}
+.nut li em{font-style:normal;color:#e6d6a8;font-weight:600;text-align:right}
+.nut li i{position:absolute;left:0;bottom:0;height:2px;width:100%;background:#d9c79a;transform-origin:left;transform:scaleX(0)}
+.nut>small{display:block;margin-top:.6rem;opacity:.7;font-size:.7rem;line-height:1.35}
+.skip{position:absolute;z-index:5;right:4%;top:84px;font-size:.85rem;opacity:.75;text-decoration:none;border-bottom:1px solid rgba(244,239,227,.4)}
+.prog{position:absolute;z-index:5;left:0;right:0;bottom:0;height:3px;background:rgba(244,239,227,.12)}.prog i{display:block;height:100%;width:0;background:#d9c79a}
+@media(max-width:760px){
+#intro{max-width:92%;top:calc(68px + 5vh);transform:none}
+#chap{top:auto;bottom:0;left:-4%;right:-4%;width:auto;padding:2.5rem 8% 1.3rem;background:linear-gradient(transparent,rgba(10,24,17,.94) 38%)}
+#chap p{font-size:.92rem}
+.nut{top:auto;bottom:118px;width:100%}
+.nut ul{grid-template-columns:1fr 1fr;gap:.3rem}.nut li{font-size:.76rem;padding:.35rem .55rem;grid-template-columns:1fr}.nut li em{text-align:left}
+.nut>small{font-size:.62rem}
+.nutOn #cx{display:none}}
+/* static fallback (no WebGL / reduced motion) */
+#hero.static{height:auto}
+.static .stick{position:relative;height:auto;overflow:visible;padding:7rem 0 4rem}
+.static #scene,.static .vig,.static .veil,.static #labels,.static #chap,.static .skip,.static .prog,.static .hint{display:none}
+.static .hero-in{height:auto}
+.static #intro,.static .nut{position:static;transform:none;opacity:1!important;max-width:none;width:auto;margin-top:2.2rem;pointer-events:auto}
+.static .nut li{opacity:1!important;transform:none!important}.static .nut li i{display:none}
+.static .sart{display:flex;gap:1.5rem;margin-top:1.5rem}.static .sart svg{width:min(40%,220px);height:auto;aspect-ratio:5/4}
+.static .nut ul{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+#map,.lines{scroll-margin-top:88px}
 /* about */
 #about .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center}
 #about p+p{margin-top:1rem}
@@ -134,23 +172,41 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 <button class="burger" aria-label="Open menu" aria-expanded="false" id="burger">&#9776;</button>
 <!-- To add future pages, add a new <li> here -->
 <ul id="menu">
-<li><a href="#about">About</a></li><li><a href="#products">Products</a></li><li><a href="#why">Why us</a></li><li><a href="#contact">Contact</a></li><li><a href="#feedback">Feedback</a></li>
+<li><a href="#hero" data-home>Home</a></li><li><a href="#about">About</a></li><li><a href="#products">Products</a></li><li><a href="#contact">Contact</a></li><li><a href="#map">Visit Us</a></li><li><a data-feedback href="#feedback" target="_blank" rel="noopener">Feedback</a></li>
 </ul></div></header>
 
 <main>
-<section id="hero" aria-label="USHASRI Farms introduction">
+<section id="hero" aria-label="USHASRI Farms: scroll-controlled story of oyster mushrooms and Nati Koli">
 <div class="stick">
-<canvas id="scene" role="img" aria-label="3D oyster mushrooms growing from a farm substrate block as you scroll"></canvas>
-<svg class="fallback" role="img" aria-label="Illustration of oyster mushroom cluster"><use href="#oyster"/></svg>
+<canvas id="scene" role="img" aria-label="3D scene that follows your scrolling: oyster mushrooms growing and being harvested, then a Nati Koli hen laying an egg"></canvas>
+<div class="vig"></div><div class="veil"></div><div id="labels" aria-hidden="true"></div>
 <div class="wrap hero-in">
+<div id="intro">
 <h1>USHASRI<br>Farms</h1>
 <p class="tag">Tender Mushrooms</p>
 <p class="intro">Pure, premium, organic values. Fresh oyster mushrooms grown with care, plus mushroom spawn and Nati Koli, sold straight from our farm.</p>
 <div class="cta"><a class="btn btn-light" href="#products">Explore Products</a><a class="btn btn-line" data-wa href="https://wa.me/917353465926">Order Now</a></div>
-<p class="stage" id="stage" aria-live="off">Tiny pins emerge from the substrate.</p>
-<div class="bar"><i id="bar"></i></div>
+<p class="sart" aria-hidden="true"><svg><use href="#oyster"/></svg><svg><use href="#hen"/></svg></p>
+<p class="hint">Scroll to begin the story</p>
 </div>
-<p class="pill" id="hint">Scroll to grow the mushrooms</p>
+<div id="chap"><div class="ci"><small id="cn"></small><h2 id="ct"></h2><p id="cx"></p></div></div>
+<div class="nut" id="nutA"><h3>Oyster mushrooms, per 100 g raw</h3><ul>
+<li><b>Protein</b><em><span class="num" data-v="3.3" data-d="1">3.3</span> g</em><i></i></li>
+<li><b>Dietary fibre</b><em><span class="num" data-v="2.3" data-d="1">2.3</span> g</em><i></i></li>
+<li><b>B vitamins</b><em>niacin about 5 mg, pantothenic acid about 1.3 mg</em><i></i></li>
+<li><b>Minerals</b><em>potassium, phosphorus, copper</em><i></i></li>
+<li><b>Culinary uses</b><em>stir-fries, curries, soups, sautes</em><i></i></li>
+</ul><small>Source: USDA FoodData Central, raw oyster mushrooms. Farm-grown values vary; this is a general guide.</small></div>
+<div class="nut" id="nutB"><h3>One large egg (about 50 g), raw</h3><ul>
+<li><b>Protein</b><em><span class="num" data-v="6.3" data-d="1">6.3</span> g</em><i></i></li>
+<li><b>Vitamin B12</b><em>about <span class="num" data-v="0.45" data-d="2">0.45</span> &micro;g</em><i></i></li>
+<li><b>Vitamin D</b><em>about 1 &micro;g (41 IU)</em><i></i></li>
+<li><b>Choline</b><em>about <span class="num" data-v="147" data-d="0">147</span> mg</em><i></i></li>
+<li><b>Selenium</b><em>about <span class="num" data-v="15" data-d="0">15</span> &micro;g</em><i></i></li>
+</ul><small><strong>Egg white</strong> is mostly water and protein. <strong>Egg yolk</strong> holds most of the choline and vitamin B12 and about 40% of the protein. Source: USDA FoodData Central and USDA ARS egg analysis for typical commercial large eggs. Native-breed eggs vary with breed, feed and size; we make no claim that desi eggs are more nutritious.</small></div>
+</div>
+<a class="skip" href="#about">Skip story</a>
+<div class="prog" aria-hidden="true"><i id="bar"></i></div>
 </div>
 </section>
 
@@ -221,6 +277,9 @@ const CONFIG={
 };
 </script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="story.js"></script>
 <script defer>
 addEventListener('DOMContentLoaded',()=>{
 const $=s=>document.querySelector(s),clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
@@ -238,73 +297,10 @@ addEventListener('scroll',()=>hd.classList.toggle('solid',scrollY>40),{passive:t
 bg.onclick=()=>{const o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
 mn.onclick=e=>{if(e.target.tagName==='A'){mn.classList.remove('open');bg.setAttribute('aria-expanded',false)}};
 
-/* ===== 3D oyster mushroom growth, driven by scroll ===== */
-const hero=$('#hero');
-const stageTxt=['Tiny pins emerge from the substrate.','Young clusters begin to expand.','Caps unfurl into soft, layered fans.','Fresh, harvest-ready oyster mushrooms.'];
-function setUI(p){const i=p<.18?0:p<.5?1:p<.82?2:3;const s=$('#stage');if(s.textContent!==stageTxt[i])s.textContent=stageTxt[i];$('#bar').style.width=(p*100)+'%';$('#hint').style.opacity=p>.05?0:.65}
-function fail(){hero.classList.add('nogl');$('.stick').style.position='relative';hero.style.height='auto';$('.stick').style.minHeight='100vh';$('#hint').style.display='none'}
-if(typeof THREE==='undefined'){fail();return}
-let R;try{R=new THREE.WebGLRenderer({canvas:$('#scene'),alpha:true,antialias:innerWidth>700,powerPreference:'high-performance'})}catch(e){fail();return}
-const mobile=innerWidth<700,still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-R.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:1.8));
-const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(36,1,.1,50);
-sc.add(new THREE.HemisphereLight(0xfff3df,0x2a1a10,.95));
-const k=new THREE.DirectionalLight(0xffe6c2,1.25);k.position.set(3,5,4);sc.add(k);
-const rim=new THREE.DirectionalLight(0x9fd6b0,.7);rim.position.set(-4,2,-3);sc.add(rim);
-const root=new THREE.Group();sc.add(root);
-// seeded random
-let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-// substrate block
-const sg=new THREE.CylinderGeometry(1.15,1.25,1.7,40,10);
-const pa=sg.attributes.position;
-for(let i=0;i<pa.count;i++){const x=pa.getX(i),y=pa.getY(i),z=pa.getZ(i);const n=1+.05*Math.sin(x*7+y*5)*Math.cos(z*6+y*3)+.03*Math.sin(y*19+x*11);pa.setXYZ(i,x*n,y,z*n)}
-sg.computeVertexNormals();
-const sub=new THREE.Mesh(sg,new THREE.MeshStandardMaterial({color:0x5b4130,roughness:1,flatShading:true}));
-sub.position.y=-.85;root.add(sub);
-// shared cap geometry: ruffled oyster fan
-const cg=new THREE.SphereGeometry(1,30,10,0,Math.PI*1.8,0,Math.PI/2);
-const cp=cg.attributes.position,cols=[];const top=new THREE.Color(0x8b8373),edge=new THREE.Color(0xe0d8c6),c=new THREE.Color();
-for(let i=0;i<cp.count;i++){let x=cp.getX(i),y=cp.getY(i),z=cp.getZ(i);const a=Math.atan2(z,x),w=1-y;
- const wave=.09*Math.sin(a*6)*w*w*w;
- cp.setXYZ(i,x*1.2*(1+wave),y*.42-wave*.6-.1*w*w*w*w,z*(1+wave));
- c.copy(top).lerp(edge,Math.pow(w,2.2));cols.push(c.r,c.g,c.b)}
-cg.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));cg.computeVertexNormals();
-const capMat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.78,side:THREE.DoubleSide});
-const stemGeo=new THREE.CylinderGeometry(.07,.12,1,10);stemGeo.translate(0,.5,0);
-const stemMat=new THREE.MeshStandardMaterial({color:0xe6dcc6,roughness:.9});
-// mushrooms
-const N=mobile?13:19,ms=[],up=new THREE.Vector3(0,1,0);
-for(let i=0;i<N;i++){
- const a=i*2.399,g=new THREE.Group(),isTop=i<6;let pos,dir;
- if(isTop){const r=.75*Math.sqrt(rnd());pos=new THREE.Vector3(r*Math.cos(a),0,r*Math.sin(a));dir=new THREE.Vector3(Math.cos(a)*.5,1,Math.sin(a)*.5)}
- else{const y=-.1-rnd()*.85;pos=new THREE.Vector3(1.2*Math.cos(a),y,1.2*Math.sin(a));dir=new THREE.Vector3(Math.cos(a),.55,Math.sin(a))}
- g.position.copy(pos);g.quaternion.setFromUnitVectors(up,dir.normalize());
- const size=.5+rnd()*.5,stem=new THREE.Mesh(stemGeo,stemMat),cap=new THREE.Mesh(cg,capMat);
- cap.rotation.set(.35+rnd()*.4,rnd()*6.28,(rnd()-.5)*.6);
- g.add(stem,cap);root.add(g);
- ms.push({g,stem,cap,size,L:.5*size+.15,s:.02+(i/N)*.5,d:.36,ph:rnd()*6})}
-root.position.y=-.35;
-function size(){const w=innerWidth,h=innerHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
-addEventListener('resize',size);size();
-let tp=0,p=0,mx=0,t0=performance.now(),vis=true;
-function prog(){const r=hero.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight))}
-addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5},{passive:true});
-function frame(now){
- tp=still?1:prog();p+=(tp-p)*.08;const t=(now-t0)/1000;
- for(const m of ms){const q=clamp((p-m.s)/m.d),e=q*q*(3-2*q),cs=clamp((q-.35)/.65),ce=cs*cs*(3-2*cs);
-  m.g.visible=q>0;m.stem.scale.set(m.size*(.3+.7*e),m.L*e+.001,m.size*(.3+.7*e));
-  m.cap.position.y=m.L*e;m.cap.scale.setScalar(m.size*.62*ce+.001);
-  m.g.rotation.z=Math.sin(t*.8+m.ph)*.012}
- root.rotation.y=p*1.6+mx*.35+(still?0:t*.05);
- const sx=mobile?0:1.1;root.position.x=sx*(1-p*.3);
- cam.position.set(0,1.6-p*.4,(mobile?9:7.4)-p*1.2);cam.lookAt(0,.35,0);
- R.render(sc,cam);setUI(p);
- if(vis&&!still)requestAnimationFrame(frame)}
-new IntersectionObserver(([e])=>{const was=vis;vis=e.isIntersecting;if(vis&&!was&&!still)requestAnimationFrame(frame)}).observe(hero);
-requestAnimationFrame(frame);
-if(still)addEventListener('resize',()=>requestAnimationFrame(frame));
+// Home / brand: smooth scroll to the very top
+document.querySelectorAll('[data-home],.brand').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'})}));
 });
 </script>
-<noscript><style>#hero{height:auto}.stick{position:relative;min-height:100vh}.fallback{display:block}</style></noscript>
+<noscript><style>#hero{height:auto}.stick{position:relative;height:auto;padding:7rem 0 4rem}#scene,.vig,.veil,#chap,.skip,.prog,.hint{display:none}#intro,.nut{position:static;transform:none;opacity:1;max-width:none;width:auto;margin-top:2rem}.nut li{opacity:1}.sart{display:flex;gap:1.5rem}.sart svg{width:200px;height:160px}</style></noscript>
 </body>
 </html>
