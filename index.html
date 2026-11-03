@@ -163,10 +163,11 @@ header.solid{background:rgba(12,34,24,.94);backdrop-filter:blur(8px)}
 .burger{display:none;background:none;border:0;color:inherit;font-size:1.7rem;cursor:pointer}
 @media(max-width:820px){.burger{display:block}.nav ul{position:absolute;inset:68px 0 auto;flex-direction:column;gap:0;background:var(--forest2);padding:.5rem 4%;display:none}.nav ul.open{display:flex}.nav ul a{display:block;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08)}}
 /* hero: scroll-controlled story */
-#hero{height:calc(100vh + 18*72vh);padding:0;background:#10281d;color:var(--cream)}
+#hero{height:calc(100vh + 20.4*38vh);padding:0;background:#10281d;color:var(--cream)}
 .stick{position:sticky;top:0;height:100vh;overflow:hidden}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
-.vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 62% 50%,transparent 45%,rgba(6,18,12,.55) 100%)}
+.vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,15,10,.9) 0,rgba(5,15,10,.74) 30%,rgba(5,15,10,.3) 46%,transparent 60%),radial-gradient(ellipse at 62% 50%,transparent 45%,rgba(6,18,12,.55) 100%)}
+#intro,#chap,.nut h3{text-shadow:0 1px 3px rgba(0,0,0,.8),0 0 18px rgba(0,0,0,.6)}
 .veil{position:absolute;inset:0;z-index:2;background:#10281d;opacity:0;pointer-events:none}
 #labels{position:absolute;inset:0;z-index:3;pointer-events:none}
 .lbl{position:absolute;left:0;top:0;opacity:0;font:600 .85rem var(--sans);color:var(--cream);white-space:nowrap}
@@ -199,6 +200,7 @@ header.solid{background:rgba(12,34,24,.94);backdrop-filter:blur(8px)}
 .skip{position:absolute;z-index:5;right:4%;top:84px;font-size:.85rem;opacity:.75;text-decoration:none;border-bottom:1px solid rgba(244,239,227,.4)}
 .prog{position:absolute;z-index:5;left:0;right:0;bottom:0;height:3px;background:rgba(244,239,227,.12)}.prog i{display:block;height:100%;width:0;background:#d9c79a}
 @media(max-width:760px){
+.vig{background:linear-gradient(0deg,rgba(5,15,10,.92) 0,rgba(5,15,10,.7) 32%,transparent 58%),linear-gradient(180deg,rgba(5,15,10,.75) 0,transparent 45%)}
 #intro{max-width:92%;top:calc(68px + 5vh);transform:none}
 #chap{top:auto;bottom:0;left:-4%;right:-4%;width:auto;padding:2.5rem 8% 1.3rem;background:linear-gradient(transparent,rgba(10,24,17,.94) 38%)}
 #chap p{font-size:.92rem}
@@ -266,7 +268,6 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 .product-img{width:100%;height:220px;object-fit:cover;border-radius:12px;margin-bottom:1.2rem;display:block}
 .card.main .product-img{height:260px;object-fit:cover}
 @media(max-width:820px){.product-img,.card.main .product-img{height:220px}}
-#products{padding-top:calc(68px + clamp(2rem,5vw,4rem))}
 /* Mushroom spawn SEO section */
 .seo-content{max-width:900px;margin:40px auto;padding:24px;line-height:1.8}
 .seo-content h2{margin-bottom:16px;line-height:1.4}
@@ -281,7 +282,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 <symbol id="hen" viewBox="0 0 200 160"><path d="M44 80 Q18 50 30 28 Q50 50 62 70Z" fill="#3f2c1e"/><ellipse cx="98" cy="92" rx="58" ry="38" fill="#6b4a33"/><ellipse cx="92" cy="94" rx="32" ry="20" fill="#8a6446"/><circle cx="152" cy="56" r="19" fill="#6b4a33"/><path d="M142 40 q6-16 12-4 q6-14 10 2z" fill="#a63d2f"/><path d="M168 54 l16 6 -16 6z" fill="#d9a63a"/><circle cx="158" cy="52" r="2.5" fill="#fff"/><path d="M92 128 v22 M110 128 v22 M84 152h16 M102 152h16" stroke="#d9a63a" stroke-width="4" fill="none" stroke-linecap="round"/></symbol>
 </svg>
 
-<header id="top" class="solid"><div class="wrap nav">
+<header id="top"><div class="wrap nav">
 <a class="brand" href="#hero" aria-label="USHASRI Farms home">USHASRI Farms</a>
 <button class="burger" aria-label="Open menu" aria-expanded="false" id="burger">&#9776;</button>
 <!-- To add future pages, add a new <li> here -->
@@ -290,6 +291,47 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
 </ul></div></header>
 
 <main>
+<section id="hero" aria-label="USHASRI Farms: scroll-controlled story of oyster mushrooms and Nati Koli">
+<div class="stick">
+<canvas id="scene" role="img" aria-label="3D scene that follows your scrolling: oyster mushrooms growing and being harvested, then a Nati Koli hen laying an egg"></canvas>
+<div class="vig"></div><div class="veil"></div><div id="labels" aria-hidden="true"></div>
+<div class="wrap hero-in">
+<div id="intro">
+<h1>USHASRI<br>Farms</h1>
+<p class="tag">Tender Mushrooms</p>
+<p class="intro">Pure, premium, organic values. Fresh oyster mushrooms grown with care, plus mushroom spawn and Nati Koli, sold straight from our farm.</p>
+<div class="cta"><a class="btn btn-light" href="#products">Explore Products</a><a class="btn btn-line" data-wa href="https://wa.me/917353465926">Order Now</a></div>
+<p class="sart" aria-hidden="true"><svg><use href="#oyster"/></svg><svg><use href="#hen"/></svg></p>
+<p class="hint">Scroll to begin the story</p>
+</div>
+<div id="chap"><div class="ci"><small id="cn"></small><h2 id="ct"></h2><p id="cx"></p></div></div>
+<div class="nut" id="nutA"><h3>Oyster mushrooms, per 100 g raw</h3><ul>
+<li><b>Protein</b><em><span class="num" data-v="3.3" data-d="1">3.3</span> g</em><i></i></li>
+<li><b>Dietary fibre</b><em><span class="num" data-v="2.3" data-d="1">2.3</span> g</em><i></i></li>
+<li><b>B vitamins</b><em>niacin about 5 mg, pantothenic acid about 1.3 mg</em><i></i></li>
+<li><b>Minerals</b><em>potassium, phosphorus, copper</em><i></i></li>
+<li><b>Culinary uses</b><em>stir-fries, curries, soups, sautes</em><i></i></li>
+</ul><small>Source: USDA FoodData Central, raw oyster mushrooms. Farm-grown values vary; this is a general guide.</small></div>
+<div class="nut" id="nutB"><h3>One large egg (about 50 g), raw</h3><ul>
+<li><b>Protein</b><em><span class="num" data-v="6.3" data-d="1">6.3</span> g</em><i></i></li>
+<li><b>Vitamin B12</b><em>about <span class="num" data-v="0.45" data-d="2">0.45</span> &micro;g</em><i></i></li>
+<li><b>Vitamin D</b><em>about 1 &micro;g (41 IU)</em><i></i></li>
+<li><b>Choline</b><em>about <span class="num" data-v="147" data-d="0">147</span> mg</em><i></i></li>
+<li><b>Selenium</b><em>about <span class="num" data-v="15" data-d="0">15</span> &micro;g</em><i></i></li>
+</ul><small><strong>Egg white</strong> is mostly water and protein. <strong>Egg yolk</strong> holds most of the choline and vitamin B12 and about 40% of the protein. Source: USDA FoodData Central and USDA ARS egg analysis for typical commercial large eggs. Native-breed eggs vary with breed, feed and size; we make no claim that desi eggs are more nutritious.</small></div>
+</div>
+<a class="skip" href="#about">Skip story</a>
+<div class="prog" aria-hidden="true"><i id="bar"></i></div>
+</div>
+</section>
+
+<section id="about"><div class="wrap grid">
+<div><h2>A farm built around freshness</h2>
+<p>USHASRI Farms grows oyster mushrooms the natural way, with attention at every stage from spawn to harvest. Our focus is simple: tender, fresh mushrooms of consistent quality.</p>
+<p>Alongside mushrooms, we supply mushroom spawn for people who want to start their own cultivation, and pure Nati Koli, the native country chicken. You deal directly with the farm, and that trust is what we work to earn.</p></div>
+<ul class="facts"><li><b>Natural farming approach</b>Careful, hands-on cultivation.</li><li><b>Oyster mushroom focus</b>Our main crop and our pride.</li><li><b>Quality and freshness</b>Harvested and supplied fresh.</li><li><b>Customer trust</b>Direct conversation, honest answers.</li></ul>
+</div></section>
+
 <section id="products">
   <div class="wrap">
 
@@ -369,40 +411,6 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
   </div>
 </section>
 
-<section id="hero" aria-label="USHASRI Farms: scroll-controlled story of oyster mushrooms and Nati Koli">
-<div class="stick">
-<canvas id="scene" role="img" aria-label="3D scene that follows your scrolling: oyster mushrooms growing and being harvested, then a Nati Koli hen laying an egg"></canvas>
-<div class="vig"></div><div class="veil"></div><div id="labels" aria-hidden="true"></div>
-<div class="wrap hero-in">
-<div id="intro">
-<h1>USHASRI<br>Farms</h1>
-<p class="tag">Tender Mushrooms</p>
-<p class="intro">Pure, premium, organic values. Fresh oyster mushrooms grown with care, plus mushroom spawn and Nati Koli, sold straight from our farm.</p>
-<div class="cta"><a class="btn btn-light" href="#products">Explore Products</a><a class="btn btn-line" data-wa href="https://wa.me/917353465926">Order Now</a></div>
-<p class="sart" aria-hidden="true"><svg><use href="#oyster"/></svg><svg><use href="#hen"/></svg></p>
-<p class="hint">Scroll to begin the story</p>
-</div>
-<div id="chap"><div class="ci"><small id="cn"></small><h2 id="ct"></h2><p id="cx"></p></div></div>
-<div class="nut" id="nutA"><h3>Oyster mushrooms, per 100 g raw</h3><ul>
-<li><b>Protein</b><em><span class="num" data-v="3.3" data-d="1">3.3</span> g</em><i></i></li>
-<li><b>Dietary fibre</b><em><span class="num" data-v="2.3" data-d="1">2.3</span> g</em><i></i></li>
-<li><b>B vitamins</b><em>niacin about 5 mg, pantothenic acid about 1.3 mg</em><i></i></li>
-<li><b>Minerals</b><em>potassium, phosphorus, copper</em><i></i></li>
-<li><b>Culinary uses</b><em>stir-fries, curries, soups, sautes</em><i></i></li>
-</ul><small>Source: USDA FoodData Central, raw oyster mushrooms. Farm-grown values vary; this is a general guide.</small></div>
-<div class="nut" id="nutB"><h3>One large egg (about 50 g), raw</h3><ul>
-<li><b>Protein</b><em><span class="num" data-v="6.3" data-d="1">6.3</span> g</em><i></i></li>
-<li><b>Vitamin B12</b><em>about <span class="num" data-v="0.45" data-d="2">0.45</span> &micro;g</em><i></i></li>
-<li><b>Vitamin D</b><em>about 1 &micro;g (41 IU)</em><i></i></li>
-<li><b>Choline</b><em>about <span class="num" data-v="147" data-d="0">147</span> mg</em><i></i></li>
-<li><b>Selenium</b><em>about <span class="num" data-v="15" data-d="0">15</span> &micro;g</em><i></i></li>
-</ul><small><strong>Egg white</strong> is mostly water and protein. <strong>Egg yolk</strong> holds most of the choline and vitamin B12 and about 40% of the protein. Source: USDA FoodData Central and USDA ARS egg analysis for typical commercial large eggs. Native-breed eggs vary with breed, feed and size; we make no claim that desi eggs are more nutritious.</small></div>
-</div>
-<a class="skip" href="#about">Skip story</a>
-<div class="prog" aria-hidden="true"><i id="bar"></i></div>
-</div>
-</section>
-
 <section class="seo-content">
   <h2>Oyster Mushroom Spawn Supplier in Karnataka</h2>
 
@@ -435,13 +443,7 @@ footer a{text-decoration:none}footer a:hover{text-decoration:underline}
     Channapatna, Ramanagara and Mysuru.
   </p>
 </section>
-  
-<section id="about"><div class="wrap grid">
-<div><h2>A farm built around freshness</h2>
-<p>USHASRI Farms grows oyster mushrooms the natural way, with attention at every stage from spawn to harvest. Our focus is simple: tender, fresh mushrooms of consistent quality.</p>
-<p>Alongside mushrooms, we supply mushroom spawn for people who want to start their own cultivation, and pure Nati Koli, the native country chicken. You deal directly with the farm, and that trust is what we work to earn.</p></div>
-<ul class="facts"><li><b>Natural farming approach</b>Careful, hands-on cultivation.</li><li><b>Oyster mushroom focus</b>Our main crop and our pride.</li><li><b>Quality and freshness</b>Harvested and supplied fresh.</li><li><b>Customer trust</b>Direct conversation, honest answers.</li></ul>
-</div></section>
+
 
 <section id="why"><div class="wrap">
 <h2>Why choose USHASRI Farms</h2>
@@ -511,7 +513,7 @@ document.querySelectorAll('[data-feedback]').forEach(a=>{if(ready)a.href=CONFIG.
 if(CONFIG.MAP_EMBED_URL){$('#map').innerHTML=`<iframe src="${CONFIG.MAP_EMBED_URL}" loading="lazy" title="USHASRI Farms on Google Maps" referrerpolicy="no-referrer-when-downgrade"></iframe>`}
 // Nav
 const hd=$('header'),mn=$('#menu'),bg=$('#burger');
-hd.classList.add('solid');
+addEventListener('scroll',()=>hd.classList.toggle('solid',scrollY>40),{passive:true});
 bg.onclick=()=>{const o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
 mn.onclick=e=>{if(e.target.tagName==='A'){mn.classList.remove('open');bg.setAttribute('aria-expanded',false)}};
 
