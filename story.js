@@ -176,8 +176,17 @@ function render(){if(!live)return;
   HN.visible=ch<14.95;HN.position.set(x,-1.7-(gh?.38:.42)*sq,z);HN.rotation.y=lerp(yawIn,yawOut,sm((ch-13.9)/.5));
   const ph=(w1*4.9+w2*5.7)*5;legs[0].rotation.x=Math.sin(ph)*.6*mv;legs[1].rotation.x=-Math.sin(ph)*.6*mv;legs.forEach(l=>l.scale.y=1-.85*sq);
   bod.position.y=Math.abs(Math.sin(ph))*.04*mv+Math.sin(ch*40)*.012*sq;hd.rotation.x=Math.max(0,Math.sin(ch*26))*.28*(1-w1)+Math.sin(ph*2)*.06*mv;
-  if(gh){gh.aI.time=ch<11?(ch-10)*1.4:0;gh.aW.time=((w1*4.9+w2*5.7)/1.15)%1;gh.aI.setEffectiveWeight(Math.max(.001,1-mv));gh.aW.setEffectiveWeight(Math.max(.001,mv));gh.mx.update(0)}
-  if(gb)gb.scale.setScalar(Math.max(.001,1.25*sm((ch-12.2)/.8)));const e1=sm((ch-14.6)/1.1),e2=sm((ch-15.9)/.9);eL.visible=ch>=13.2&&ch<17;
+if(gh){
+ // Walking animation only. No flying, falling or lying-down animation.
+ gh.aW.time=(
+   (ch-10)*0.7 +
+   (w1*4.9+w2*5.7)/1.15
+ ) % 1;
+
+ gh.aW.setEffectiveWeight(1);
+ gh.mx.update(0);
+}
+    if(gb)gb.scale.setScalar(Math.max(.001,1.25*sm((ch-12.2)/.8)));const e1=sm((ch-14.6)/1.1),e2=sm((ch-15.9)/.9);eL.visible=ch>=13.2&&ch<17;
   eL.position.lerpVectors(NP,BP,e1);eL.position.y+=Math.sin(Math.PI*e1)*1;eL.position.lerp(DP,e2);eL.scale.setScalar(lerp(ES*sm((ch-13.2)/.8),1.3,e2));
   eL.rotation.set(0,.5+(Math.PI*2-.5)*sm((ch-16.3)/.7),lerp(Math.PI/2,0,e2));
   const u=ch-17;cutG.visible=ch>=17;cutG.position.copy(DP);cutG.scale.setScalar(1.3);const f=sm((u-.1)/.6);frontH.position.z=.8*f;shF.opacity=1-sm((u-.2)/.5);frontH.visible=shF.opacity>.01;
@@ -198,10 +207,31 @@ get('mushroom.glb',g=>{
  sp.forEach(([x,z,r,fs,st,hs],i)=>{const piv=new THREE.Group(),m=g.scene.clone(true);prep(m);m.position.y=.89;piv.add(m);piv.position.set(x,0,z);piv.rotation.y=r;A.add(piv);cl.push({piv,m,fs,fb:fbk[i],st,hs:6+hs,r0:r,p0:new THREE.Vector3(x,0,z),pB:new THREE.Vector3(...hp[i])})});
  const m0=cl[0].m;L[3].p=anchor(m0,0,.78,.05);L[4].p=anchor(m0,-.6,-.5,.55);L[5].p=anchor(m0,.02,-.1,.15);
  ms.forEach(m=>m.g.visible=false);useM=true});
-get('hen.glb',g=>{const h=g.scene;prep(h);const w=new THREE.Group();h.position.set(0,-.014,.058);w.add(h);w.scale.setScalar(3.3);B.add(w);
- const mx=new THREE.AnimationMixer(h),c=g.animations[0],sub=(n,a,b)=>THREE.AnimationUtils.subclip(c,n,a,b,30),aI=mx.clipAction(sub('idle',0,42)),aW=mx.clipAction(sub('walk',168,198));
- [aI,aW].forEach(a=>{a.play();a.timeScale=0});gh={mx,aI,aW};hen.visible=false;HN=w});
-get('basket.glb',g=>{const b=g.scene;prep(b);b.traverse(m=>{if(m.isMesh)[].concat(m.material).forEach(x=>x.color.setRGB(1,.88,.76))});const w=new THREE.Group();w.add(b);w.scale.setScalar(1.25);w.position.set(2.3,-1.7+.365*1.25,.9);B.add(w);gb=w;bB.visible=false;pe.forEach(e=>e.visible=false);BP.set(2.3,-1.08,.9);ES=.3});
-gsap.to(S,{t:1,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom bottom',scrub:.25,onToggle:s=>{live=s.isActive;if(!live)requestAnimationFrame(()=>{live=true;render();live=false})}}});
-gsap.ticker.add(render);
-})();
+get('hen.glb',g=>{
+ const h=g.scene;
+ prep(h);
+
+ const w=new THREE.Group();
+ h.position.set(0,-.014,.058);
+ w.add(h);
+ w.scale.setScalar(3.3);
+ B.add(w);
+
+ const mx=new THREE.AnimationMixer(h);
+ const c=g.animations[0];
+
+ const walkClip=THREE.AnimationUtils.subclip(
+   c,'walk',168,198,30
+ );
+
+ const aW=mx.clipAction(walkClip);
+
+ aW.play();
+ aW.timeScale=0;
+ aW.setEffectiveWeight(1);
+
+ gh={mx,aW};
+
+ hen.visible=false;
+ HN=w;
+});
