@@ -24,9 +24,61 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","name":"USHASRI Farms","slogan":"Tender Mushrooms","url":"https://dhanushshiva.github.io/Ushasrifarm/","telephone":"+917353465926","hasMap":"https://maps.app.goo.gl/KdheLdDYNBfFyMYt6","sameAs":["https://www.instagram.com/ushasrifarm/"],"description":"Farm growing fresh oyster mushrooms, supplying mushroom spawn and Nati Koli (native country chicken).","makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Product","name":"Fresh oyster mushrooms"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Mushroom spawn"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Nati Koli (native country chicken)"}}]}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://dhanushshiva.github.io/Ushasrifarm/#farm",
+      "name": "USHASRI Farms",
+      "slogan": "Tender Mushrooms",
+      "url": "https://dhanushshiva.github.io/Ushasrifarm/",
+      "telephone": "+917353465926",
+      "hasMap": "https://maps.app.goo.gl/KdheLdDYNBfFyMYt6",
+      "sameAs": [
+        "https://www.instagram.com/ushasrifarm/"
+      ],
+      "description": "Farm growing fresh oyster mushrooms, supplying mushroom spawn and Nati Koli native country chicken."
+    },
+    {
+      "@type": "Product",
+      "name": "Fresh oyster mushrooms",
+      "description": "Fresh, tender oyster mushrooms grown at USHASRI Farms.",
+      "image": [
+        "https://dhanushshiva.github.io/Ushasrifarm/assets/oyster-mushroom-1.jpg",
+        "https://dhanushshiva.github.io/Ushasrifarm/assets/oyster-mushroom-2.jpg"
+      ],
+      "brand": {
+        "@type": "Brand",
+        "name": "USHASRI Farms"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Mushroom spawn",
+      "description": "Mushroom spawn supplied by USHASRI Farms for cultivation.",
+      "image": "https://dhanushshiva.github.io/Ushasrifarm/assets/mushroom-spawn.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "USHASRI Farms"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Nati Koli (native country chicken)",
+      "description": "Native country chicken supplied directly by USHASRI Farms.",
+      "image": "https://dhanushshiva.github.io/Ushasrifarm/assets/nati-koli.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "USHASRI Farms"
+      }
+    }
+  ]
+}
 </script>
+
 <style>
 :root{--forest:#143528;--forest2:#0c2218;--cream:#f4efe3;--beige:#e6dac2;--brown:#6b4a33;--ink:#1d2a22;--white:#fffdf8;--serif:'Fraunces',Georgia,serif;--sans:'Figtree',system-ui,sans-serif}
 *{box-sizing:border-box;margin:0}
