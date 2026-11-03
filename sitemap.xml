@@ -1,24 +1,7 @@
 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dhanushshiva.github.io/Ushasrifarm/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <image:image>
-      <image:loc>https://dhanushshiva.github.io/Ushasrifarm/assets/oyster-mushroom-1.jpg</image:loc>
-      <image:title>Fresh Oyster Mushrooms</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://dhanushshiva.github.io/Ushasrifarm/assets/oyster-mushroom-2.jpg</image:loc>
-      <image:title>Oyster Mushroom Harvest</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://dhanushshiva.github.io/Ushasrifarm/assets/mushroom-spawn.jpg</image:loc>
-      <image:title>Mushroom Spawn</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://dhanushshiva.github.io/Ushasrifarm/assets/nati-koli.jpg</image:loc>
-      <image:title>Nati Koli Country Chicken</image:title>
-    </image:image>
   </url>
 </urlset>
