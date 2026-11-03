@@ -20,7 +20,7 @@ sky.geometry.setAttribute('color',new THREE.Float32BufferAttribute(cs,3));es.add
 scn.environment=pm.fromScene(es,.04).texture}
 const hemi=new THREE.HemisphereLight(0xfff1dc,0x2a1d12,.3),key=new THREE.DirectionalLight(0xffe2b8,1.6),rim=new THREE.DirectionalLight(0x9fd6b0,.9);
 key.position.set(4,7,5);rim.position.set(-5,3,-4);key.castShadow=!mobile;key.shadow.mapSize.set(1024,1024);
-{const s=key.shadow.camera;s.left=s.bottom=-7;s.right=s.top=7;s.far=25;key.shadow.bias=-.0006}
+{const s=key.shadow.camera;s.left=s.bottom=-7;s.right=s.top=7;s.far=25;key.shadow.bias=-.0006;key.shadow.normalBias=.03}
 scn.add(hemi,key,rim);
 /* procedural textures (no downloads) */
 let sd=11;const rnd=()=>(sd=sd*16807%2147483647)/2147483647;
@@ -158,7 +158,7 @@ const yawIn=Math.atan2(N0[0]-S0[0],N0[1]-S0[1]),yawOut=Math.atan2(O[0]-N0[0],O[1
 let live=true,last=-1;
 function render(){if(!live)return;
  const t=S.t,ch=warp(t),inB=ch>=10;A.visible=!inB;B.visible=inB;
- scn.background.copy(inB?C(0x2a2818):C(0x0b1d15));scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x48442a):C(0x0f261b));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
+ scn.background.copy(inB?C(0x2a2818):C(0x0b1d15));hemi.intensity=inB?.7:.3;rim.intensity=inB?1.1:.9;scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x48442a):C(0x0f261b));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
  veil.style.opacity=clamp(1-Math.abs(ch-10)/.3).toFixed(3);bar.style.width=(t*100)+'%';
  const idx=Math.min(NC-1,Math.floor(ch));
  if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');hero.classList.toggle('nutOn',idx===9||idx===18)}
@@ -193,13 +193,23 @@ function render(){if(!live)return;
 const MD='assets/models/',gl=THREE.GLTFLoader?new THREE.GLTFLoader():null,cl=[];
 const prep=o=>o.traverse(m=>{if(!m.isMesh)return;m.castShadow=true;m.receiveShadow=true;if(m.isSkinnedMesh)m.frustumCulled=false;[].concat(m.material).forEach(x=>{x.metalness=0;x.roughness=Math.max(x.roughness||0,.65);x.envMapIntensity=.6})});
 const get=(f,ok)=>gl&&gl.load(MD+f,g=>{try{ok(g)}catch(e){console.warn(f,e)}},undefined,()=>console.warn('could not load',f));
+/* Realistic feathers: the GLB ships its feather cards as alpha-BLEND, which sorts badly (ghosting, washed-out, holes).
+   Convert to hard cutout + alpha-to-coverage, restore real depth writing, sharpen the maps, and add a soft feather sheen. */
+const featherUp=o=>{const mxA=R.capabilities.getMaxAnisotropy();o.traverse(m=>{if(!m.isMesh)return;[].concat(m.material).forEach(x=>{
+ x.transparent=false;x.alphaTest=.4;x.alphaToCoverage=!mobile;x.depthWrite=true;x.side=THREE.DoubleSide;
+ x.metalness=0;x.roughness=.58;x.envMapIntensity=1.05;x.color.setRGB(1.06,1.03,1);
+ if(x.normalMap)x.normalScale.set(1.35,1.35);
+ [x.map,x.normalMap].forEach(t=>{if(t){t.anisotropy=Math.min(mxA,mobile?4:16);t.generateMipmaps=true;t.minFilter=THREE.LinearMipmapLinearFilter;t.needsUpdate=true}});
+ x.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace('#include <dithering_fragment>',
+  'float fr=pow(1.0-clamp(dot(normalize(normal),normalize(vViewPosition)),0.0,1.0),3.0);gl_FragColor.rgb+=fr*0.10*vec3(1.0,0.86,0.66);\n#include <dithering_fragment>')};
+ x.needsUpdate=true})})};
 get('mushroom.glb',g=>{
  /* [x, z, yaw, final scale, grow-start chapter, harvest delay] */
  const sp=[[0,0,0,1.5,2,0],[.85,.6,.9,.62,2.5,.3],[-.8,-.65,2.2,.55,2.8,.6]].slice(0,mobile?2:3),hp=[[4,-1.5,0],[3.55,-1.45,.32],[4.4,-1.45,-.3]],fbk=[.6,.26,.24];
  sp.forEach(([x,z,r,fs,st,hs],i)=>{const piv=new THREE.Group(),m=g.scene.clone(true);prep(m);m.position.y=.89;piv.add(m);piv.position.set(x,0,z);piv.rotation.y=r;A.add(piv);cl.push({piv,m,fs,fb:fbk[i],st,hs:6+hs,r0:r,p0:new THREE.Vector3(x,0,z),pB:new THREE.Vector3(...hp[i])})});
  const m0=cl[0].m;L[3].p=anchor(m0,0,.78,.05);L[4].p=anchor(m0,-.6,-.5,.55);L[5].p=anchor(m0,.02,-.1,.15);
  ms.forEach(m=>m.g.visible=false);useM=true});
-get('hen.glb',g=>{const h=g.scene;prep(h);const w=new THREE.Group();h.position.set(0,-.014,.058);w.add(h);w.scale.setScalar(3.3);B.add(w);
+get('hen.glb',g=>{const h=g.scene;prep(h);featherUp(h);const w=new THREE.Group();h.position.set(0,-.014,.058);w.add(h);w.scale.setScalar(3.3);B.add(w);
  const mx=new THREE.AnimationMixer(h),c=g.animations[0],sub=(n,a,b)=>THREE.AnimationUtils.subclip(c,n,a,b,30),aI=mx.clipAction(sub('idle',0,42)),aW=mx.clipAction(sub('walk',168,198));
  [aI,aW].forEach(a=>{a.play();a.timeScale=0});gh={mx,aI,aW};hen.visible=false;HN=w});
 get('basket.glb',g=>{const b=g.scene;prep(b);b.traverse(m=>{if(m.isMesh)[].concat(m.material).forEach(x=>x.color.setRGB(1,.88,.76))});const w=new THREE.Group();w.add(b);w.scale.setScalar(1.25);w.position.set(2.3,-1.7+.365*1.25,.9);B.add(w);gb=w;bB.visible=false;pe.forEach(e=>e.visible=false);BP.set(2.3,-1.08,.9);ES=.3});
