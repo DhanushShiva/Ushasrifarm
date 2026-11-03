@@ -116,16 +116,16 @@ const L=[];const lab=(t,p,a,b)=>{const el=document.createElement('div');el.class
 const h0=ms[0];
 lab('Spawn',anchor(A,.5,.05,.3),.2,1.4);lab('Substrate',anchor(A,-1.05,-1.2,.6),.3,2.4);lab('Mycelium',anchor(A,1.2,-.6,.45),1.3,2.6);
 lab('Mushroom cap',anchor(h0.cp,0,.5,-.9),4.2,6.1);lab('Gills',anchor(h0.cp,0,.2,-.45),4.4,6.1);lab('Stem',anchor(h0.g,0,.3,0),4.6,6.1);
-lab('Shell',anchor(cutG,-.47,.1,.02),17.3,19.1);lab('Egg white',anchor(cutG,-.33,.36,.02),17.4,19.1);lab('Egg yolk',anchor(cutG,.05,-.02,.02),17.5,19.1);
+lab('Shell',anchor(cutG,-.47,.1,.02),16.3,18.1);lab('Egg white',anchor(cutG,-.33,.36,.02),16.4,18.1);lab('Egg yolk',anchor(cutG,.05,-.02,.02),16.5,18.1);
 L.forEach(l=>{l.g=l.b<10?0:1});
 /* camera rails (Catmull-Rom through per-chapter keyframes: position, look-at) */
 const rail=k=>[new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[0],v[1],v[2]))),new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[3],v[4],v[5]))),new THREE.CatmullRomCurve3(k.map(v=>new THREE.Vector3(v[6],0,0)))];
 /* keys per chapter: [camX,camY,camZ, lookX,lookY,lookZ, fov]. Wide establishing shots, a few deliberate closer beats. */
 const cA=rail([[0,2.2,7.8,0,-.7,0,34],[3.4,.6,7.6,0,-.7,0,34],[-2.2,1.6,8.8,0,-.4,0,36],[0,1.2,9.6,0,.1,0,37],[1.4,.8,10.4,0,.35,.3,38],[0,1.6,12.6,0,.6,0,38],[1.6,2.2,13.6,1.6,.3,0,38],[3.6,1.6,10.6,3.6,-.5,0,36],[4.2,.8,7.8,4,-.7,0,34],[4.6,.3,8.4,4,-.8,0,34]]);
-const cB=rail([[-1.5,0,9.6,-2.7,-.8,1.2,36],[-1.8,.4,10.6,-2,-.8,.9,36],[-.8,.2,8.6,-.2,-1,.2,36],[1.6,.2,9.4,-.1,-.9,.2,36],[.9,.1,6.6,-.2,-1.1,.2,36],[1.2,.2,7.6,1.1,-1,.5,36],[1.3,-.3,6.6,1.15,-.6,1.5,34],[1.3,-.3,6.8,1.15,-.6,1.5,34],[1.4,-.4,6.2,1.15,-.6,1.5,34]]);
+const cB=rail([[-1.8,.4,10.6,-2,-.8,.9,36],[-.8,.2,8.6,-.2,-1,.2,36],[1.6,.2,9.4,-.1,-.9,.2,36],[.9,.1,6.6,-.2,-1.1,.2,36],[1.2,.2,7.6,1.1,-1,.5,36],[1.3,-.3,6.6,1.15,-.6,1.5,34],[1.3,-.3,6.8,1.15,-.6,1.5,34],[1.4,-.4,6.2,1.15,-.6,1.5,34]]);
 /* UI */
 const CH=[['Oyster mushroom journey 1/10','Spawn meets substrate','Mushroom spawn, grain colonised by mycelium, is mixed into a prepared growing substrate such as straw.'],['Oyster mushroom journey 2/10','Mycelium spreads','White mycelium threads grow through the substrate and bind it together.'],['Oyster mushroom journey 3/10','Pins appear','Tiny primordia, called pins, push out of the surface when conditions are right.'],['Oyster mushroom journey 4/10','Growing','Stems lengthen and the first small caps begin to form.'],['Oyster mushroom journey 5/10','Caps expand','Caps widen and ruffle into the soft fan shape oyster mushrooms are known for.'],['Oyster mushroom journey 6/10','A full cluster','A mature cluster: the cap, the gills beneath it, and the short stem joining them.'],['Oyster mushroom journey 7/10','Harvest','Mature clusters are picked by hand at harvest time.'],['Oyster mushroom journey 8/10','Into the basket','Freshly picked mushrooms are placed gently into a natural basket.'],['Oyster mushroom journey 9/10','Fresh from the farm','Tender, fresh and ready to supply.'],['Oyster mushroom journey 10/10','What is inside','Nutritional highlights of raw oyster mushrooms.'],
-['Nati Koli and desi egg 1/9','Nati Koli at home','Our native country chicken, the Nati Koli, in a natural farm setting.'],['Nati Koli and desi egg 2/9','Heading to the nest','When ready to lay, a hen looks for a quiet, sheltered nest.'],['Nati Koli and desi egg 3/9','Settling in','She settles into the straw and stays calm and still.'],['Nati Koli and desi egg 4/9','Laying','An egg is laid while she rests on the nest.'],['Nati Koli and desi egg 5/9','A fresh egg','A freshly laid egg rests in the nest.'],['Nati Koli and desi egg 6/9','Collecting','Eggs are collected gently and placed in a basket.'],['Nati Koli and desi egg 7/9','The desi egg','A closer look at a brown-shelled desi egg.'],['Nati Koli and desi egg 8/9','Inside the egg','A cross-section: the shell, the egg white and the yolk.'],['Nati Koli and desi egg 9/9','What is inside','Nutritional highlights for one large egg.']];
+['Nati Koli and desi egg 1/8','Heading to the nest','When ready to lay, a hen looks for a quiet, sheltered nest.'],['Nati Koli and desi egg 2/8','Settling in','She settles into the straw and stays calm and still.'],['Nati Koli and desi egg 3/8','Laying','An egg is laid while she rests on the nest.'],['Nati Koli and desi egg 4/8','A fresh egg','A freshly laid egg rests in the nest.'],['Nati Koli and desi egg 5/8','Collecting','Eggs are collected gently and placed in a basket.'],['Nati Koli and desi egg 6/8','The desi egg','A closer look at a brown-shelled desi egg.'],['Nati Koli and desi egg 7/8','Inside the egg','A cross-section: the shell, the egg white and the yolk.'],['Nati Koli and desi egg 8/8','What is inside','Nutritional highlights for one large egg.']];
 const NC=CH.length,intro=$('#intro'),chap=$('#chap'),cn=$('#cn'),ct=$('#ct'),cx=$('#cx'),ci=$('.ci'),veil=$('.veil'),bar=$('#bar'),nA=$('#nutA'),nB=$('#nutB');
 const lisA=[...nA.querySelectorAll('li')],lisB=[...nB.querySelectorAll('li')];
 const nut=(el,lis,u,out)=>{el.style.opacity=(sm(u/.15)*out).toFixed(3);lis.forEach((li,k)=>{const p=sm((u-.12-k*.1)/.2);li.style.opacity=p;li.style.transform=`translateX(${(1-p)*-18}px)`;const n=li.querySelector('.num');if(n)n.textContent=(+n.dataset.v*p).toFixed(+n.dataset.d||0);const b=li.querySelector('i');if(b)b.style.transform=`scaleX(${p})`})};
@@ -133,15 +133,15 @@ let dm=1;function fit(){const w=hero.clientWidth,h=innerHeight;dm=Math.max(1,1.1
 addEventListener('resize',fit);fit();
 const S={t:0},V=new THREE.Vector3(),T=new THREE.Vector3(),S0=[-3.9,1.7],N0=[-.1,.1],O=[-5.2,-2.4],NP=new THREE.Vector3(0,-1.54,0),BP=new THREE.Vector3(2.2,-1.38,.9),DP=new THREE.Vector3(.8,-.5,1.5);let ES=.26,HN=hen,gh=null,useM=false,gb=null;
 const yawIn=Math.atan2(N0[0]-S0[0],N0[1]-S0[1]),yawOut=Math.atan2(O[0]-N0[0],O[1]-N0[1]);
-let live=true,last=-1;
+let live=false,last=-1;
 function render(){if(!live)return;
  const t=S.t,ch=t*NC,inB=ch>=10;A.visible=!inB;B.visible=inB;
  scn.background.copy(inB?C(0x2a2818):C(0x10281d));scn.fog.color.copy(scn.background);floorM.color.copy(inB?C(0x5a5532):C(0x1c3d2d));key.color.copy(inB?C(0xfff0d0):C(0xffe2b8));
  veil.style.opacity=clamp(1-Math.abs(ch-10)/.3).toFixed(3);bar.style.width=(t*100)+'%';
  const idx=Math.min(NC-1,Math.floor(ch));
- if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');hero.classList.toggle('nutOn',idx===9||idx===18)}
+ if(idx!==last){last=idx;cn.textContent=CH[idx][0];ct.textContent=CH[idx][1];cx.textContent=CH[idx][2];ci.classList.remove('in');void ci.offsetWidth;ci.classList.add('in');hero.classList.toggle('nutOn',idx===9||idx===17)}
  const io=1-sm(ch/.45);intro.style.opacity=io;intro.style.pointerEvents=io<.15?'none':'auto';chap.style.opacity=sm((ch-.4)/.3);
- nut(nA,lisA,ch-9,1-sm((ch-9.75)/.25));nut(nB,lisB,ch-18,1);
+ nut(nA,lisA,ch-9,1-sm((ch-9.75)/.25));nut(nB,lisB,ch-17,1);
  if(!inB){
   const my=sm((ch-.8)/1.4);mg.setDrawRange(0,(mTot*my)|0);subM.emissive.setScalar(.1*my);grains.visible=ch<3.3;const sk=sm((ch-7.8)/.7)*2.4;sub.position.y=-.85-sk;myc.position.y=-sk;bA.scale.setScalar(Math.max(.001,sm((ch-4.4)/.8)));
   if(useM)for(const c of cl){const gI=sm((ch-c.st)/3),hv=sm((ch-c.hs)/1),sy=Math.pow(gI,.8),sx=Math.pow(gI,1.3),f=lerp(c.fs,c.fb,hv);c.piv.visible=gI>.003;c.piv.scale.set(sx*f,sy*f,sx*f);c.piv.position.lerpVectors(c.p0,c.pB,hv);c.piv.position.y+=Math.sin(Math.PI*hv)*1;c.piv.rotation.y=c.r0+hv*.7}
@@ -149,18 +149,18 @@ function render(){if(!live)return;
    m.g.visible=gi>.002;m.stem.scale.set(m.size*(.35+.65*gi),m.L*gi+.001,m.size*(.35+.65*gi));m.cp.position.y=m.L*gi;m.cp.scale.setScalar(m.size*.62*cs+1e-4);
    m.g.position.lerpVectors(m.p0,m.pB,hv);m.g.position.y+=Math.sin(Math.PI*hv)*1.3;m.g.quaternion.copy(m.q0).slerp(m.qB,hv);m.g.scale.setScalar(lerp(1,.55,hv))}
  }else{
-  const w1=sm((ch-11)/1.6),w2=sm((ch-14)/.9),sq=sm((ch-12.6)/.7)-sm((ch-13.9)/.5),mv=clamp(Math.min(w1,1-w1)*12+Math.min(w2,1-w2)*12);
+  const bc=ch+1,w1=sm((bc-11)/1.6),w2=sm((bc-14)/.9),sq=sm((bc-12.6)/.7)-sm((bc-13.9)/.5),mv=clamp(Math.min(w1,1-w1)*12+Math.min(w2,1-w2)*12);
   let x=lerp(S0[0],N0[0],w1),z=lerp(S0[1],N0[1],w1);if(w2>0){x=lerp(N0[0],O[0],w2);z=lerp(N0[1],O[1],w2)}
-  HN.visible=ch<14.95;HN.position.set(x,-1.7-(gh?.38:.42)*sq,z);HN.rotation.y=lerp(yawIn,yawOut,sm((ch-13.9)/.5));
+  HN.visible=bc<14.95;HN.position.set(x,-1.7-(gh?.38:.42)*sq,z);HN.rotation.y=lerp(yawIn,yawOut,sm((bc-13.9)/.5));
   const ph=(w1*4.9+w2*5.7)*5;legs[0].rotation.x=Math.sin(ph)*.6*mv;legs[1].rotation.x=-Math.sin(ph)*.6*mv;legs.forEach(l=>l.scale.y=1-.85*sq);
-  bod.position.y=Math.abs(Math.sin(ph))*.04*mv+Math.sin(ch*40)*.012*sq;hd.rotation.x=Math.max(0,Math.sin(ch*26))*.28*(1-w1)+Math.sin(ph*2)*.06*mv;
-  if(gh){gh.aI.time=ch<11?(ch-10)*1.4:0;gh.aW.time=((w1*4.9+w2*5.7)/1.15)%1;gh.aI.setEffectiveWeight(Math.max(.001,1-mv));gh.aW.setEffectiveWeight(Math.max(.001,mv));gh.mx.update(0)}
-  if(gb)gb.scale.setScalar(Math.max(.001,1.25*sm((ch-12.2)/.8)));const e1=sm((ch-14.6)/1.1),e2=sm((ch-15.9)/.9);eL.visible=ch>=13.2&&ch<17;
-  eL.position.lerpVectors(NP,BP,e1);eL.position.y+=Math.sin(Math.PI*e1)*1;eL.position.lerp(DP,e2);eL.scale.setScalar(lerp(ES*sm((ch-13.2)/.8),1.3,e2));
-  eL.rotation.set(0,.5+(Math.PI*2-.5)*sm((ch-16.3)/.7),lerp(Math.PI/2,0,e2));
-  const u=ch-17;cutG.visible=ch>=17;cutG.position.copy(DP);cutG.scale.setScalar(1.3);const f=sm((u-.1)/.6);frontH.position.z=.8*f;shF.opacity=1-sm((u-.2)/.5);frontH.visible=shF.opacity>.01;
+  bod.position.y=Math.abs(Math.sin(ph))*.04*mv+Math.sin(bc*40)*.012*sq;hd.rotation.x=Math.max(0,Math.sin(bc*26))*.28*(1-w1)+Math.sin(ph*2)*.06*mv;
+  if(gh){gh.aI.time=0;gh.aW.time=((w1*4.9+w2*5.7)/1.15)%1;gh.aI.setEffectiveWeight(Math.max(.001,1-mv));gh.aW.setEffectiveWeight(Math.max(.001,mv));gh.mx.update(0)}
+  if(gb)gb.scale.setScalar(Math.max(.001,1.25*sm((bc-12.2)/.8)));const e1=sm((bc-14.6)/1.1),e2=sm((bc-15.9)/.9);eL.visible=bc>=13.2&&bc<17;
+  eL.position.lerpVectors(NP,BP,e1);eL.position.y+=Math.sin(Math.PI*e1)*1;eL.position.lerp(DP,e2);eL.scale.setScalar(lerp(ES*sm((bc-13.2)/.8),1.3,e2));
+  eL.rotation.set(0,.5+(Math.PI*2-.5)*sm((bc-16.3)/.7),lerp(Math.PI/2,0,e2));
+  const u=bc-17;cutG.visible=bc>=17;cutG.position.copy(DP);cutG.scale.setScalar(1.3);const f=sm((u-.1)/.6);frontH.position.z=.8*f;shF.opacity=1-sm((u-.2)/.5);frontH.visible=shF.opacity>.01;
  }
- const pc=inB?cB:cA,u=inB?clamp((ch-10)/8):clamp(ch/9);pc[1].getPoint(u,T);pc[0].getPoint(u,cam.position);cam.position.sub(T).multiplyScalar(dm>1.15&&!inB?dm*(1+.35*sm((ch-5.6)/.6)*(1-sm((ch-7.4)/.6))):dm).add(T);cam.lookAt(T);pc[2].getPoint(u,V);if(Math.abs(cam.fov-V.x)>.01){cam.fov=V.x;cam.updateProjectionMatrix()}cam.updateMatrixWorld();const dist=cam.position.distanceTo(T);scn.fog.near=dist+5;scn.fog.far=dist+22;
+ const pc=inB?cB:cA,u=inB?clamp((ch-10)/7):clamp(ch/9);pc[1].getPoint(u,T);pc[0].getPoint(u,cam.position);cam.position.sub(T).multiplyScalar(dm>1.15&&!inB?dm*(1+.35*sm((ch-5.6)/.6)*(1-sm((ch-7.4)/.6))):dm).add(T);cam.lookAt(T);pc[2].getPoint(u,V);if(Math.abs(cam.fov-V.x)>.01){cam.fov=V.x;cam.updateProjectionMatrix()}cam.updateMatrixWorld();const dist=cam.position.distanceTo(T);scn.fog.near=dist+5;scn.fog.far=dist+22;
  const W=hero.clientWidth,H=innerHeight;
  for(const l of L){const op=(l.g===(inB?1:0))?sm((ch-l.a)/.3)*sm((l.b-ch)/.3):0;if(op<.02){l.el.style.opacity=0;continue}
   l.p.updateWorldMatrix(true,false);V.setFromMatrixPosition(l.p.matrixWorld).project(cam);const x=(V.x*.5+.5)*W,y=(-V.y*.5+.5)*H;
@@ -180,6 +180,6 @@ get('hen.glb',g=>{const h=g.scene;prep(h);const w=new THREE.Group();h.position.s
  const mx=new THREE.AnimationMixer(h),c=g.animations[0],sub=(n,a,b)=>THREE.AnimationUtils.subclip(c,n,a,b,30),aI=mx.clipAction(sub('idle',0,42)),aW=mx.clipAction(sub('walk',168,198));
  [aI,aW].forEach(a=>{a.play();a.timeScale=0});gh={mx,aI,aW};hen.visible=false;HN=w});
 get('basket.glb',g=>{const b=g.scene;prep(b);b.traverse(m=>{if(m.isMesh)[].concat(m.material).forEach(x=>x.color.setRGB(1,.88,.76))});const w=new THREE.Group();w.add(b);w.scale.setScalar(1.25);w.position.set(2.3,-1.7+.365*1.25,.9);B.add(w);gb=w;bB.visible=false;pe.forEach(e=>e.visible=false);BP.set(2.3,-1.08,.9);ES=.3});
-gsap.to(S,{t:1,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom bottom',scrub:.6,onToggle:s=>{live=s.isActive;if(!live)requestAnimationFrame(()=>{live=true;render();live=false})}}});
+gsap.to(S,{t:1,ease:'none',scrollTrigger:{trigger:hero,start:'top top',end:'bottom bottom',scrub:.6,onRefresh:s=>{live=s.isActive},onToggle:s=>{live=s.isActive;if(!live)requestAnimationFrame(()=>{live=true;render();live=false})}}});
 gsap.ticker.add(render);
 })();
