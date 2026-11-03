@@ -25,3 +25,6 @@ GitHub Pages: repo Settings > Pages > Deploy from branch `main` / root. Or drag 
 
 ## Later
 Add pages (e.g. `oyster-mushrooms.html`), then add a nav `<li>` and a sitemap `<url>`.
+
+## Scroll story (hero)
+`story.js` drives the whole film from scroll position (GSAP ScrollTrigger + Three.js). Chapters, text and nutrition cards live in `story.js` (`CH` array) and `index.html` (`#nutA`, `#nutB`). Falls back to a static layout without WebGL or with reduced motion. Models are generated in code; to use real GLB models, load them with `GLTFLoader` in place of the procedural meshes.
